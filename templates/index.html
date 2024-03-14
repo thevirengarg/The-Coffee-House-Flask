@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Coffee House</title>
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='code.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+    :root {
+      --main-color: #dead7f;
+      --black: #13131a;
+      --bg: #010103;
+      --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+      --box-shadow: 0 .5rem 1rem rgba(203, 108, 19, 0.25);
+    }
+    
+    * {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      transition: 0.2s linear;
+    }
+    
+    html {
+      font-size: 62.5%;
+      overflow-x: hidden;
+      scroll-padding-top: 9rem;
+      scroll-behavior: smooth;
+    }
+    
+    html::-webkit-scrollbar {
+      width: 0.8rem;
+    }
+    
+    html::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    html::-webkit-scrollbar-thumb {
+      background: #fff;
+      border-radius: 5rem;
+    }
+    
+    body {
+      background: var(--bg);
+    }
+    
+    section {
+      padding: 2rem 7%;
+    }
+
+ 
+
+    .apple {
+        width: 9em;
+        height: 3em;
+        border-radius: 30em;
+        font-size: 15px;
+        font-family: inherit;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    }
+
+    .apple::before {
+        content: '';
+        width: 0;
+        height: 3em;
+        border-radius: 30em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: linear-gradient(to right, #dead7f 0%, #c58d58 100%);
+        /* transition: .1s ease; */
+        display: block;
+        z-index: -1;
+    }
+
+    .apple:hover::before {
+        width: 9em;
+    }
+
+    .abcd {
+        width: 9em;
+        height: 3em;
+        border-radius: 30em;
+        font-size: 15px;
+        font-family: inherit;
+        border: none;
+        margin-left: 50px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    }
+
+    .abcd::before {
+        content: '';
+        width: 0;
+        height: 3em;
+        border-radius: 30em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: linear-gradient(to right, #dead7f 0%, #c58d58 100%);
+        transition: .5s ease;
+        display: block;
+        z-index: -1;
+    }
+
+    .abcd:hover::before {
+        width: 9em;
+    }
+
+    .goodtable {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 1.5em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .goodtable thead tr {
+        background-color: #dead7f;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .goodtable th,
+    .goodtable td {
+        padding: 12px 15px;
+    }
+
+    .goodtable tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .goodtable tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .goodtable tbody tr:last-of-type {
+        border-bottom: 2px solid #dead7f;
+    }
+
+    .goodtable tbody tr.active-row {
+        font-weight: bold;
+        color: #dead7f;
+    }
+
+    .heading {
+        text-align: center;
+        color: #fff;
+        text-transform: uppercase;
+        padding-bottom: 3.5rem;
+        font-size: 4rem;
+    }
+
+    .heading span {
+        color: var(--main-color);
+        text-transform: uppercase;
+    }
+
+    .addtocart {
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 0.9rem 3rem;
+        font-size: 1.7rem;
+        color: #fff;
+        background: var(--main-color);
+        cursor: pointer;
+    }
+
+    .btn {
+        margin-top: 1rem;
+        display: inline-block;
+        padding: 0.9rem 3rem;
+        font-size: 1.7rem;
+        color: #fff;
+        background: var(--main-color);
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        letter-spacing: 0.2rem;
+    }
+
+    .header {
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 7%;
+        border-bottom: var(--border);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .header .logo img {
+        height: 6rem;
+    }
+
+    .header .navbar a {
+        margin: 0 1rem;
+        font-size: 1.6rem;
+        color: #fff;
+    }
+
+    .header .navbar a:hover {
+        color: var(--main-color);
+        border-bottom: 0.1rem solid var(--main-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .header .icons div {
+        color: #fff;
+        cursor: pointer;
+        font-size: 2.5rem;
+        margin-left: 2rem;
+    }
+
+    .header .icons div:hover {
+        color: var(--main-color);
+    }
+
+    .header .search-form {
+        position: absolute;
+        top: 115%;
+        right: 7%;
+        background: #fff;
+        width: 50rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    .header .search-form.active {
+        transform: scaleY(1);
+    }
+
+    .header .search-form input {
+        width: 100%;
+        height: 100%;
+        font-size: 1.6rem;
+        color: var(--black);
+        padding: 1rem;
+        text-transform: none;
+    }
+
+    .header .search-form label {
+        cursor: pointer;
+        font-size: 2.2rem;
+        margin-right: 1.5rem;
+        color: var(--black);
+    }
+
+    .header .search-form label:hover {
+        color: var(--main-color);
+    }
+
+    .cart-items-container {
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        height: calc(100vh - 9.5rem);
+        width: 35rem;
+        background: #fff
+    }
+    
+       
+.home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: url("{{ url_for('static', filename='images/coffeebackg.jpg') }}")  no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .home .content {
+    max-width: 60rem;
+    text-transform: none;
+    text-align:center;
+  }
+  
+  .home .content h3 {
+    font-size: 6rem;
+    color: var(--main-color);
+    
+  }
+  .home .content h4 {
+    font-size: 4rem;
+    color: #fff;
+    text-align: center;
+  }
+  .home .content h5 {
+    font-size: 4rem;
+    color: #fff;
+    text-align: center;
+  }
+  .home .content p {
+    font-size: 2rem;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: #eee;
+  
+  }
+  
+  
+  .about .row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+  }
+  
+  .about .row .image {
+    flex: 1 1 4rem;
+  }
+  
+  .about .row .image img {
+    width: 100%;
+  }
+  
+  .about .row .content {
+    flex: 1 1 45rem;
+    padding: 2rem;
+  }
+  
+  .about .row .content h3 {
+    font-size: 3rem;
+    color: #fff;
+   
+  }
+  
+  .about .row .content p {
+    font-size: 1.6rem;
+    color: #ccc;
+    padding: 1rem 0;
+    line-height: 1.8;
+    
+  }
+  #learn {
+    display: none;
+  }
+  
+  #learn:checked~.invisible-content {
+    display: block;
+  }
+  
+  #learn:checked~label {
+    display: none;
+  }
+
+
+  .review .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+}
+
+.review .box-container .box {
+  text-align: center;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+
+.review .box-container .box p {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #ccc;
+  padding: 2rem 0;
+}
+
+.review .box-container .box .user {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.review .box-container .box h3 {
+  padding: 1rem 0;
+  font-size: 2rem;
+  color: #fff;
+}
+  .contact .icons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+
+}
+
+.contact .icons-container .icons {
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: .5rem;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+}
+
+.contact .icons-container .icons i {
+  height: 6rem;
+  width: 6rem;
+  line-height: 6rem;
+  font-size: 2.5rem;
+  color: #ccc;
+  border: var(--bg);
+  border-radius: 50%;
+}
+
+.contact .icons-container .icons h3 {
+  padding: 1rem 0;
+  font-size: 2.5rem;
+  color: #ccc;
+
+}
+
+.contact .icons-container .icons p {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: var(--main-color);
+
+}
+
+.contact .row {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.contact .row .map {
+  flex: 1 1 45rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: .5rem;
+  padding: 2rem;
+  border: var(--border);
+  box-shadow: var(--box-shadow);
+}
+
+.contact .row form {
+  flex: 1 1 45rem;
+  padding: 2rem;
+  border: var(--border);
+  border-radius: .5rem;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+
+}
+
+.contact .row form h3 {
+  text-transform: uppercase;
+  font-size: 3.5rem;
+  color: #fff;
+
+}
+
+.contact .row form .inputBox {
+  margin: .5rem 0;
+  padding: 1rem;
+  font-size: 1.6rem;
+  color: var(--black);
+  background: #f7f7ff;
+  border: var(--border);
+  border-radius: .5rem;
+  text-transform: none;
+  width: 100%;
+  display: flex;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+
+}
+
+.contact .row form .inputBox span {
+  color: #000000;
+  font-size: 2rem;
+  padding-left: 0rem;
+}
+
+.contact .row form .inputBox input {
+  width: 100%;
+  font-size: 2rem;
+  color: #000000;
+  text-transform: none;
+  background: none;
+}
+  
+.blogs .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 1.5rem;
+}
+
+.blogs .box-container .box {
+  padding: 2.5rem;
+  text-align: center;
+  border: var(--border);
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+.blogs .box-container .box .image {
+  height: 25rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.blogs .box-container .box .image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.blogs .box-container .box:hover .image img {
+  transform: scale(1.2);
+}
+
+.blogs .box-container .box .content {
+  padding: 2rem;
+}
+
+.blogs .box-container .box .content .title {
+  font-size: 2.5rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.blogs .box-container .box .content .title:hover {
+  color: var(--main-color);
+}
+
+.blogs .box-container .box .content span {
+  color: var(--main-color);
+  display: block;
+  padding-top: 1rem;
+  font-size: 2rem;
+}
+
+.blogs .box-container .box .content p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #ccc;
+  padding: 1rem 0;
+}
+
+#ch {
+  display: none;
+}
+
+#ch:checked~.invisible-content {
+  display: block;
+}
+
+#ch:checked~label {
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+#check:checked~.invisible-content {
+  display: block;
+}
+
+#check:checked~label {
+  display: none;
+}
+
+#che {
+  display: none;
+}
+
+#che:checked~.invisible-content {
+  display: block;
+}
+
+#che:checked~label {
+  display: none;
+}
+
+.invisible-content {
+  display: none;
+}
+
+label {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: .9rem 3rem;
+  font-size: 1.7rem;
+  color: #fff;
+  background: var(--main-color);
+  cursor: pointer;
+}
+
+.label:hover {
+  letter-spacing: .2rem;
+}
+  .footer {
+  background: var(--black);
+  text-align: center;
+}
+
+.footer .share {
+  padding: 1rem 0;
+}
+
+.footer .share a {
+  height: 5rem;
+  width: 5rem;
+  font-size: 2rem;
+  line-height: 5rem;
+  color: #fff;
+  border: var(--border);
+  margin: 0.3rem;
+  border-radius: 50%;
+}
+
+.footer .share a:hover {
+  background-color: var(--main-color);
+}
+
+.footer .links {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  gap: 1rem;
+}
+
+.footer .links a {
+  padding: 0.7rem 2rem;
+  color: #fff;
+  border: var(--border);
+  font-size: 2rem;
+}
+
+.footer .links a:hover {
+  background-color: var(--main-color);
+}
+
+.footer .credit {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: lighter;
+  padding: 1.5rem;
+}
+
+.footer .credit span {
+  color: var(--main-color);
+}
+#cartIcon{
+  width: 35px;
+  height: auto;
+  margin-right: 1.5rem;
+
+}
+#logo{
+  width: 50px;
+  height: auto;
+}
+.header{
+  height:  80px;
+
+}
+.sign-in {
+  --primary-color: #dead7f;
+  --secondary-color: #7c3e04;
+  --hover-color: #eceff2;
+  --arrow-width: 9px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 40px;
+  color: var(--secondary-color);
+  padding: 0.8em 1.2em;
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+.sign-in .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+button .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.sign-in:hover {
+  background-color: var(--hover-color);
+}
+
+.sign-in:hover .arrow {
+  background: var(--secondary-color);
+}
+
+.sign-in:hover .arrow:before {
+  right: 0;
+}
+
+  </style>
+  
+    <script>
+        function PopUpFunction(){
+          alert("Thank you for submitting your message! We will get back to you as soon as possible")
+        }
+    </script>
+
+</head>
+
+<body>
+    <header class="header">
+        <a href="/">
+            <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}" />
+        </a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a class="link" href="/menu">Menu</a>
+            <a href="#review">Review</a>
+            <a href="#contact">Contact</a>
+            <a href="#blogs">Blogs</a>
+          </nav>
+          <div>
+<!--         
+            <div class="icons">
+              <div class="fas fa-search" id="search-btn">
+              
+            </div> -->
+            <!-- <div class="" id=""> -->
+              <!-- {% if not loggedIn %} -->
+              <a class="link" href="/loginForm">
+                
+              <button class="sign-in">
+                Sign In
+                <div class="arrow-wrapper">
+                  <div class="arrow"></div>
+                </div>
+                
+                
+                  
+                
+              </button>
+              
+              </a>
+              
+              <!-- {% endif %} -->
+              <!-- <div id="kart">
+                <a class="link" href="/cart">
+                  <img src="{{url_for('static', filename='images/shoppingCart.png')}}" id="cartIcon" />
+                  {{noOfItems}}
+                </a>
+              </div> -->
+            <!-- </div> -->
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here..." />
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="home" id="home">
+        <div class="content">
+            <h3><span>The Coffee House</span></h3>
+            <h4>Skillfully Roasted.</h4>
+            <h5>Artfully Blended.</h5>
+            <p><b><b>With brand new coffee knowledge and discoveries unveiling themselves each day, the journey into
+                        the world of coffee is an exciting and limitless adventure with room for us all to explore,
+                        connect and interact.</b></b></p>
+            <a href="/menu" class="btn">Get Yours Now</a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h1 class="heading"><span>about</span> us</h1>
+        <div class="row">
+            <div class="image">
+                <img  src="{{ url_for('static', filename='images/aboutus.jpeg') }}"  alt="about" />
+            </div>
+
+            <div class="content">
+                <input type="checkbox" id="learn">
+                <h3 class="title">What makes our coffee special?</h3>
+                <p>
+                    Transparency, traceability, and quality have been our focus since we started. We cup hundreds of
+                    samples to find the very best coffees India has to offer and the coffee we source, the coffee we
+                    like to drink! Our team of Q-Graders leads our sourcing to ensure high-quality specialty grade lots.
+                    We roast our coffee fresh on Probat machines with specific profiles designed to highlight unique
+                    flavors. Every batch is quality control evaluated prior to dispatch.
+                </p>
+                <div class="invisible-content">
+                    <p>
+                        We serve Counter Culture coffee, and the products we had are made to perfection. We
+                        also serve snacks and have a rotating menu of one-of-a-kind drinks that are unlike anything
+                        we’ve seen elsewhere. Each drink in this section had something unique about it, which makes
+                        for a great experience you can’t get anywhere else.
+                    </p>
+                    <label for="learn" class="btn">Show less</label>
+                </div>
+                <label for="learn" class="btn">Learn more</label>
+            </div>
+        </div>
+    </section>
+    <section class="review" id="review">
+        <h1 class="heading">customer's <span>review</span></h1>
+        <div class="box-container">
+            <div class="box">
+                
+                <p>
+                    They have an impressive array of food to choose from, including baked goods like muffins. The
+                    prices are reasonable, and both the coffee and food are excellent.
+                </p>
+
+                <h3>Zaeden</h3>
+
+            </div>
+            <div class="box">
+                           
+                <p>
+                    Our favourite thing about Coffee House is their hazelnut-cold coffee, and being able to get one
+                    for dinner is a bonus.
+                </p>
+
+                <h3>Aashna</h3>
+
+            </div>
+            <div class="box">
+               
+                <p>
+                    I was introduced to the brand quite by surprise through a friend. The taste is on point. Cheers
+                    to them for keeping up the highest standards of quality and consistency.
+                </p>
+
+                <h3>Yuvika</h3>
+
+            </div>
+        </div>
+    </section>
+
+<section class="contact" id="contact">
+    <h1 class="heading"><span>contact</span> us</h1>
+    <div class="icons-container">
+        <div class="icons">
+            <i class="fas fa-phone"></i>
+            <h3>Our Number</h3>
+            <p>+123-456-7890</p>
+            <p>+111-222-3333</p>
+        </div>
+        <div class="icons">
+            <i class="fas fa-envelope"></i>
+            <h3>Our Email</h3>
+            <p>virender3861.be22@chitkara.edu.in</p>
+            <p>sakshi3839.be22@chitkara.edu.in</p>
+        </div>
+        <div class="icons">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Our Location</h3>
+            <p>Chitkara University, Rajpura-140401</p>
+        </div>
+    </div>
+    <div class="row">
+        <iframe class="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3437.1751352098186!2d76.65720287488585!3d30.516086474689573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fc32344a6e2d7%3A0x81b346dee91799ca!2sChitkara%20University!5e0!3m2!1sen!2sin!4v1682154402054!5m2!1sen!2sin"
+            width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <form action="" method="post">
+            <h3>get in touch</h3>
+            <div class="inputBox">
+                <span class="fas fa-user"></span>
+                <input type="text" placeholder="name" name="name" />
+            </div>
+            <div class="inputBox">
+                <span class="fas fa-envelope"></span>
+                <input type="email" placeholder="email" name="email" />
+            </div>
+            <div class="inputBox">
+                <span class="fas fa-phone"></span>
+                <input type="text" placeholder="number" name="number" />
+            </div>
+            <textarea name="message" placeholder="message" class="inputBox" id="" cols="100" rows="10"></textarea>
+            <button type="submit" class="btn" onclick="PopUpFunction()">Submit
+              
+            </button>
+        </form>
+    </div>
+</section>
+
+    <section class="blogs" id="blogs">
+        <h1 class="heading">our <span>blogs</span></h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='images/blog1.jpg') }}" alt="blog1">
+                </div>
+                <div class="content">
+                    <input type="checkbox" id="ch">
+                    <a href="#" class="title">Coffee Wine: What is it, and is it as weird as it sounds?</a>
+                    <span>By Kashish Nanda / 9th March, 2024</span>
+                    <p>Coffee lovers and wine enthusiasts, unite! Coffee and wine are what keep most of us going
+                        through the week. You can get the best of both worlds with a new drink on the block: coffee
+                        wine. Coffee wine is another alcoholic coffee drink, like Irish coffee. It is just what it
+                        sounds like: a combination of wine and coffee.
+                    </p>
+                    <div class="invisible-content">
+                        <p> Flavour notes from wine and coffee are
+                            combined into one drink for a rich, full-bodied flavour. Coffee wine is made from brewed
+                            coffee using a sweetened cold brew, yeast, enzymes, and acids, similar to the way to
+                            make coffee kombucha. The coffee goes through fermentation, during which yeast consumes
+                            sugars to produce alcohol. The drink ferments and ages for several months before you can
+                            drink it. The final drink is a wine that smells and tastes slightly like coffee.</p>
+                        <label for="ch">Read less</label>
+                    </div>
+                    <label for="ch">Read more</label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='images/blog2.jpg') }}" alt="blog2">
+                </div>
+                <div class="content">
+                    <input type="checkbox" id="check">
+                    <a href="#" class="title">How to Find High-Quality Coffee Beans</a>
+                    <span>By Akira Mehta / 22nd December, 2023</span>
+                    <p>
+
+                        There are two main types of coffee beans: Arabica and Robusta. The highest-quality variety,
+                        Arabica, makes up most of the world’s coffee. Robusta beans, often found in blends, are
+                        lower-priced, more bitter, and have twice as much caffeine. If you’re looking for
+                        high-quality coffee keep an eye out for 100% Arabica beans.
+
+                    </p>
+                    <div class="invisible-content">
+                        <p>
+                            Just as important as where it’s grown is where (and when!) the coffee is roasted. Most
+                            exported coffee is shipped green, because as soon as it’s roasted, coffee begins to lose
+                            freshness through contact with oxygen. To minimize the time between roasting and
+                            brewing, find roasters near you or roasters that ship their coffee beans out quickly.
+                            <label for="check">Read less</label>
+                    </div>
+                    <label for="check">Read more</label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="image">
+                    <img src="{{ url_for('static', filename='images/blog3.jpg') }}" alt="blog3">
+                </div>
+                <div class="content">
+                    <input type="checkbox" id="che">
+                    <a href="#" class="title">Get in love with the first sip!</a>
+                    <span>By Naman Bansal / 29 August, 2023</span>
+                    <p>
+                        Coffee has always been close to my heart. If you ask me, I don’t really remember when
+                        exactly I fell in love, but I just did. The aroma, the taste, the flavour everything is so
+                        therapeutic. I am sure, like me, you have wondered what it is about coffee that we love so
+                        much. How is it even possible to love coffee so much?
+                    </p>
+                    <div class="invisible-content">
+                        <p>My love for coffee dates back at least a decade, when I used to sip some coffee here and
+                            there. It then grew into a weekly Saturday morning tradition, almost, when my friends
+                            would either come over to my place or we would all go out, meet at a coffee shop, and
+                            nonchalantly order the beverage of our choice, coffee. My love for coffee has developed
+                            over the years but has grown more than ever, especially in the past few years. I know it
+                            may seem kind of silly to some to love something like a beverage as much as I do, but
+                            then again, it’s more than just a "simple beverage" to me.</p>
+                        <label for="che">Read less</label>
+                    </div>
+                    <label for="che">Read more</label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="share">
+            <a href="https://www.facebook.com/ChitkaraU/" target="_blank" class="fab fa-facebook-f"></a>
+            <a href="https://twitter.com/chitkara_online" target="_blank" class="fab fa-twitter"></a>
+            <a href="https://www.instagram.com/chitkarau/?hl=en" target="_blank" class="fab fa-instagram"></a>
+            <a href="https://in.linkedin.com/school/chitkara-university/" target="_blank" class="fab fa-linkedin"></a>
+            <a href="https://in.pinterest.com/pulkitsaini4u/chitkara-university/" target="_blank" class="fab fa-pinterest"></a>
+        </div>
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a class="link" href="/menu">Menu</a>
+            <a href="#review">Review</a>
+            <a href="#contact">Contact</a>
+            <a href="#blogs">Blogs</a>
+        </div>
+
+        <div class="credit">
+            Created by <span>Virender and Sakshi</span> | All Rights Reserved
+        </div>
+    </section>
+</body>
+</html>
+
+</body>
+
+</html>
